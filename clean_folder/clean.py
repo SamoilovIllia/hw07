@@ -1,8 +1,9 @@
 from pathlib import Path
 import shutil
 import sys
+import os
 import file_parser as parser
-from normalize6 import normalize
+from normalize import normalize
 
 def handle_media(filename: Path, target_folder: Path):
     target_folder.mkdir(exist_ok=True, parents=True)
@@ -92,8 +93,28 @@ def main(folder: Path):
 
 
 
-if __name__ == '__main__':
-    if sys.argv[1]:
-        folder_for_scan = Path(sys.argv[1])
-        print(f'Start in folder {folder_for_scan.resolve()} ')
-        main(folder_for_scan.resolve())
+def my_main_script():
+    try:
+        target_folder = sys.argv[1]
+    except IndexError:
+        print("Folder for sorting was not defined. Please enter path to folder.")
+        return
+    if not os.path.exists(target_folder):
+        print("Indicated folder doesn't exist. Please check path and start process again")
+        exit()
+    print(f'\nWe start file sorting process in folder -> {target_folder}\n')
+
+    main(Path(target_folder))
+
+    print(f'Sorting process in progress...\n')
+    print(f"Files were sorted successfully. Please check here -> {target_folder}\n")
+
+
+if __name__ == "__main__":
+    my_main_script()
+
+# if __name__ == '__main__':
+#     if sys.argv[1]:
+#         folder_for_scan = Path(sys.argv[1])
+#         print(f'Start in folder {folder_for_scan.resolve()} ')
+#         main(folder_for_scan.resolve())
