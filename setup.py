@@ -1,4 +1,5 @@
 from setuptools import setup, find_namespace_packages
+import clean_folder.file_parser
 
 setup(name='clean_folder',
     version='0.6.6.6',
